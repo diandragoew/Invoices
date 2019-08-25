@@ -22,10 +22,11 @@ public class InvoiceService {
 		final User user = userRepository.findByName(name);
 
 		if (user == null) {
-			throw new Exception("losh user");
+			throw new Exception("wrong user");
 		}
 
 		final Set<Invoice> invoicesNaKonkretniPorychki = new HashSet<>();
+
 		for (final long nomerNaPorychka : nomeraNaPorychki) {
 			for (final Invoice invoice : user.getInvoices()) {
 				for (final Order order : invoice.getOrders()) {
@@ -35,6 +36,7 @@ public class InvoiceService {
 				}
 			}
 		}
+
 		return invoicesNaKonkretniPorychki;
 	}
 }

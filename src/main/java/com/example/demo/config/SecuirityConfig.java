@@ -13,20 +13,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecuirityConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	DataSource dataSource;
+
 	@Bean
 	public PasswordEncoder encoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
-
-	@Autowired
-	DataSource dataSource;
 
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
 				.usersByUsernameQuery("select name, pass, 'true' as enabled from users where name = ?")
 				.authoritiesByUsernameQuery("select name, 'USER' from users where name=?");
-//		auth.inMemoryAuthentication().withUser("food").password("foo").roles("USER");
 	}
 
 	@Override

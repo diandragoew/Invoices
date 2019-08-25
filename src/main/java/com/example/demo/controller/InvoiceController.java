@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-//import com.example.demo.config.SpringSecurityConfig;
-
 import com.example.demo.model.Invoice;
 import com.example.demo.services.InvoiceService;
 
@@ -31,10 +29,10 @@ public class InvoiceController {
 	}
 
 	@PostMapping("/invoices")
-	public Set<Invoice> getInvoices(final HttpServletRequest request, @RequestBody final List<Long> nomera) {
+	public Set<Invoice> getInvoices(final HttpServletRequest request, @RequestBody final List<Long> nomeraNaZaqvki) {
 		final Principal principal = request.getUserPrincipal();
 		try {
-			return invoiceService.returnInvoices(nomera, principal.getName());
+			return invoiceService.returnInvoices(nomeraNaZaqvki, principal.getName());
 		} catch (final Exception e) {
 			return new HashSet<>();
 		}
